@@ -1,10 +1,12 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require 'active_record/railtie'
+require "action_controller/railtie"
+require 'rails/test_unit/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+# Bundler.require(*Rails.groups)
 
 module EtaCalculator
   class Application < Rails::Application
@@ -22,5 +24,15 @@ module EtaCalculator
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('app/services')
+
+    config.generators do |g|
+      g.test_framework  false
+      g.stylesheets     false
+      g.javascripts     false
+      g.helper         false
+    end
   end
 end

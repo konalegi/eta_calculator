@@ -1,0 +1,1 @@
+class BaseServiceError < RuntimeError; end
